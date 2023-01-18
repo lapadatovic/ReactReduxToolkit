@@ -1,28 +1,42 @@
 import { useState, React} from 'react'
-import { useDispatch } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
+import { useDispatch,useSelector } from 'react-redux';
+
 import { postAdded } from './postSlice';
+import { selectAllUsers } from '../users/usersSlice';
 
 export default function AddPostForm() {
+
+    const dispatch = useDispatch();
+
     const [title, setTitle] = useState('');
     const [content,setContent] = useState('');
-    const dispatch = useDispatch();
+    const [userId,setUserId] = useState('');
+    const [userName,setUserName] = useState('');
+
+    const users = useSelector(selectAllUsers)
+   
     const onTitleChanged = (e) => setTitle(e.target.value);
     const onContentChanged = (e) => setContent(e.target.value)
+    const onAuthorChanged = (e) => setUserId(e.target.value)
+    // console.log(userId)
 
     const onSavePostClicked = () => {
         if(title && content) {
             dispatch( 
-                postAdded({
-                    id: nanoid(),
-                    title,
-                    content
-                })
+                postAdded(title,content, userId)
             )
             setTitle('')
             setContent('')
         }
     }
+
+    const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
+
+    const usersOptions = users.map(user => (
+    <option key={user.id} value={user.id}>
+        {user.name}
+    </option>
+    ))
 
     return (
         <section>
@@ -38,11 +52,11 @@ export default function AddPostForm() {
                 />
                 <label htmlFor="postAuthor">Author:</label>
                 <select id="postAuthor" 
-                    // value={userId} 
-                    // onChange={onAuthorChanged}
+                    value={userId} 
+                    onChange={onAuthorChanged}
                 >
                     <option value=""></option>
-                    {/* {usersOptions} */}
+                    {usersOptions}
                 </select>
                 <label htmlFor="postContent">Content:</label>
                 <textarea
@@ -54,7 +68,7 @@ export default function AddPostForm() {
                 <button
                     type="button"
                     onClick={onSavePostClicked}
-                    // disabled={!canSave}
+                    disabled={!canSave}
                 >Save Post</button>
             </form>
         </section>
