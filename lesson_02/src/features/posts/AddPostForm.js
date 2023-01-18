@@ -11,7 +11,7 @@ export default function AddPostForm() {
     const [title, setTitle] = useState('');
     const [content,setContent] = useState('');
     const [userId,setUserId] = useState('');
-    const [userName,setUserName] = useState('');
+    // const [userName,setUserName] = useState('');
 
     const users = useSelector(selectAllUsers)
    
@@ -28,7 +28,7 @@ export default function AddPostForm() {
             setTitle('')
             setContent('')
         }
-    }
+    };
 
     const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
 
@@ -36,7 +36,7 @@ export default function AddPostForm() {
     <option key={user.id} value={user.id}>
         {user.name}
     </option>
-    ))
+    ));
 
     return (
         <section>
