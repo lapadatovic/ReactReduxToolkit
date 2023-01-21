@@ -3,7 +3,7 @@ import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TimeAgo";
 import ReactionButtons from "./ReactionButtons";
 
-export default function PostExcertp({post}) {
+export default function PostExcertp({ post }) {
   return (
     <article>
         <h3>{post.title}</h3>

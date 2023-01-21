@@ -16,16 +16,25 @@ const PostsList = () => {
         }
     }),[postsStatus,dispatch])
 
-    const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
+    // const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
+    // const renderedPosts = orderedPosts.map(post => (
+    //     <PostExcertp key={post.id} />
+    // ))
 
-    const renderedPosts = orderedPosts.map(post => (
-        <PostExcertp key={post.id} />
-    ))
+    let content;
+    if(postsStatus === 'loading'){
+        content = <p>Loading...</p>
+    }else if(postsStatus === 'succeeded'){
+        const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
+        content = orderedPosts.map(post => <PostExcertp key={post.id} post={post} />)
+    }else if( postsStatus === 'failed') {
+        content = <p>{error}</p>
+    }
 
     return (
         <section>
             <h2>Posts</h2>
-            {renderedPosts}
+            {content}
         </section>
     )
 }

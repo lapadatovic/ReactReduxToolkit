@@ -13,9 +13,9 @@ const initialState = {
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     try{
         const response = await axios.get(POSTS_URL);
-        return response.data;
-    }catch (error){
-        return error.message
+        return response.data
+    }catch (err){
+        return err.message
     }
 })
 
@@ -56,7 +56,7 @@ const postsSlice = createSlice({
     },
     extraReducers(builder){
         builder
-        .addCase(fetchPosts.pending, (state, action) =>{
+        .addCase(fetchPosts.pending, (state, action) => {
             state.status = 'loading'
         })
         .addCase(fetchPosts.fulfilled, (state, action) => {
@@ -64,13 +64,13 @@ const postsSlice = createSlice({
             // adding date and reactions
             let minute = 1;
             const loadedPosts = action.payload.map( post => {
-                post.date = sub(new Date(), {minutes: minute}).toISOString
+                post.date = sub(new Date(), {minutes: minute}).toISOString()
                 post.reactions = {
                     thumbsUp: 0,
                     hooray: 0,
                     heart: 0,
                     rocket: 0, 
-                    eyes: 0
+                    coffee: 0,
                 }
                 return post
             });
