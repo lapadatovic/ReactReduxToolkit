@@ -16,11 +16,6 @@ const PostsList = () => {
         }
     }),[postsStatus,dispatch])
 
-    // const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
-    // const renderedPosts = orderedPosts.map(post => (
-    //     <PostExcertp key={post.id} />
-    // ))
-
     let content;
     if(postsStatus === 'loading'){
         content = <p>Loading...</p>
