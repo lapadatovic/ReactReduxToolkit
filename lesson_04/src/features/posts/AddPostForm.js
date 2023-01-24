@@ -10,9 +10,9 @@ const AddPostForm = () => {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [userId, setUserId] = useState('')
-    const [addRequestStatus, setAddRequestStatus] = useState('idle')
+    const [addRequestStatus, setAddRequestStatus] = useState('idle');
 
-    const users = useSelector(selectAllUsers)
+    const users = useSelector(selectAllUsers);
 
     const onTitleChanged = e => setTitle(e.target.value)
     const onContentChanged = e => setContent(e.target.value)

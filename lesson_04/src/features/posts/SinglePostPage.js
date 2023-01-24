@@ -4,11 +4,13 @@ import { selectPostById } from './postsSlice'
 import PostAuthor from './PostAuthor'
 import TimeAgo from './TimeAgo'
 import ReactionButtons from './ReactionButtons'
+import { useParams } from "react-router-dom";
 
 const SinglePostPage = () => {
     // Retrieve postId
-
-    const post = useSelector((state) => selectPostById(state, postId))
+    const {postId} = useParams();
+    console.log(postId);
+    const post = useSelector((state) => selectPostById(state, Number(postId)))
 
     if(!post) {
         return (
@@ -17,7 +19,6 @@ const SinglePostPage = () => {
             </section>
         )
     }
-
     return(
         <article>
             <h2>{post.title}</h2>
